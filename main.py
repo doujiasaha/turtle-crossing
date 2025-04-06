@@ -14,7 +14,6 @@ cars = CarManager()
 
 screen.listen()
 screen.onkey(player.up, "w")
-screen.onkey(player.down, "s")
 
 spawn_timer = 0
 next_spawn_time = random.uniform(0, 1)
@@ -35,13 +34,25 @@ while game_is_on:
             spawn_timer = current_time
             next_spawn_time = random.uniform(0, 1)
     
-        
-    
+    #if car is out of screen, remove element from list.
     for car in cars.car_amount[:]:
         if car.xcor() < -320:
             cars.car_amount.remove(car)
+
+    #collision with car onto turtle
+    for car in cars.car_amount:
+        if player.distance(car) < 20:
+            print("HIT")
+            game_is_on = False
     
-    time.sleep(1 / 60)
+    #game-winning logic
+    if player.ycor() > 280:
+        player.finish()
+        score.level_up()
+        cars.difficulty()
+        print(f"current speed is {cars.current_speed}")
+    
+    time.sleep(0.1)
     screen.update()
 
 
