@@ -10,7 +10,9 @@ MAX_CARS = 20
 class CarManager(Turtle):
     def __init__(self):
         super().__init__()
+        self.hideturtle()
         self.car_amount = []
+        self.current_speed = STARTING_MOVE_DISTANCE
 
 
     def spawn(self):
@@ -31,7 +33,10 @@ class CarManager(Turtle):
             
     def car_movement(self):
         for car in self.car_amount:
-            car.forward(STARTING_MOVE_DISTANCE)
+            car.forward(self.current_speed)
+            
+    def difficulty(self):
+        self.current_speed += MOVE_INCREMENT
 
 """
 2. Cars are randomly generated along the y-axis and 
